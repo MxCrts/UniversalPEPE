@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compte à rebours jusqu'à minuit</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+        #timer {
+            font-size: 3em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="timer"></div>
+
+    <script>
+        // Function to calculate time remaining until midnight
+        function getTimeRemaining(endtime) {
+            const total = Date.parse(endtime) - Date.parse(new Date());
+            const seconds = Math.floor((total / 1000) % 60);
+            const minutes = Math.floor((total / 1000 / 60) % 60);
+            const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+            const days = Math.floor(total / (1000 * 60 * 60 * 24));
+            
+            return {
+                total,
+                days,
+                hours,
+                minutes,
+                seconds
+            };
+        }
+
+        // Function to initialize and update the timer
+        function initializeClock(id, endtime) {
+            const clock = document.getElementById(id);
+            function updateClock() {
+                const t = getTimeRemaining(endtime);
+
+                clock.innerHTML = `${t.days}d ${t.hours}h ${t.minutes}m ${t.seconds}s`;
+
+                if (t.total <= 0) {
+                    clearInterval(timeinterval);
+                    clock.innerHTML = "Minuit est arrivé!";
+                }
+            }
+
+            updateClock(); // Run once on initialization
+            const timeinterval = setInterval(updateClock, 1000);
+        }
+
+        // Set the countdown to midnight tomorrow CET
+        const currentDate = new Date();
+        const tomorrowMidnight = new Date(currentDate);
+        tomorrowMidnight.setDate(currentDate.getDate() + 1); // Move to tomorrow
+        tomorrowMidnight.setHours(0, 0, 0, 0); // Set to midnight
+
+        initializeClock('timer', tomorrowMidnight);
+    </script>
+</body>
+</html>

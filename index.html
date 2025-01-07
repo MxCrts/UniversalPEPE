@@ -3,29 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compte à rebours jusqu'à minuit</title>
+    <title>Compte à rebours vers l'Univers de UniversalPEPE</title>
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #000;
+            background: linear-gradient(to bottom, #000, #1a1a1a);
             color: #fff;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Courier New', monospace;
         }
         #timer {
             font-size: 3em;
             text-align: center;
+            margin-bottom: 20px;
+        }
+        #mysterious-name {
+            font-size: 2em;
+            text-align: center;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 50px #0ff, 0 0 60px #0ff;
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 50px #0ff, 0 0 60px #0ff;
+            }
+            to {
+                text-shadow: 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 50px #0ff, 0 0 60px #0ff, 0 0 70px #0ff;
+            }
         }
     </style>
 </head>
 <body>
     <div id="timer"></div>
+    <div id="mysterious-name">UniversalPEPE</div>
 
     <script>
-        // Function to calculate time remaining until midnight
         function getTimeRemaining(endtime) {
             const total = Date.parse(endtime) - Date.parse(new Date());
             const seconds = Math.floor((total / 1000) % 60);
@@ -42,7 +58,6 @@
             };
         }
 
-        // Function to initialize and update the timer
         function initializeClock(id, endtime) {
             const clock = document.getElementById(id);
             function updateClock() {
@@ -52,7 +67,7 @@
 
                 if (t.total <= 0) {
                     clearInterval(timeinterval);
-                    clock.innerHTML = "Minuit est arrivé!";
+                    clock.innerHTML = "Le moment est venu!";
                 }
             }
 
@@ -60,7 +75,6 @@
             const timeinterval = setInterval(updateClock, 1000);
         }
 
-        // Set the countdown to midnight tomorrow CET
         const currentDate = new Date();
         const tomorrowMidnight = new Date(currentDate);
         tomorrowMidnight.setDate(currentDate.getDate() + 1); // Move to tomorrow
